@@ -15,12 +15,23 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "web" middleware group. Make something great!
 |
-*/  
+*/
+
 
 Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    
 Route::get("/evento",[EventoController::class,'index'])->name("evento.index");
 Route::post("/evento",[EventoController::class,'store'])->name("evento.store");
 Route::get("/evento/create",[EventoController::class,'create'])->name("evento.create");
@@ -41,18 +52,12 @@ Route::get("/organizador/create",[OrganizadorController::class,'create'])->name(
 Route::delete('/organizador/{id}', [OrganizadorController::class, 'destroy'])->name('organizador.destroy');
 Route::put('/organizador/{id}', [OrganizadorController::class, 'update'])->name('organizador.update');
 Route::get('/organizador/{id}/edit', [OrganizadorController::class, 'edit'])->name('organizador.edit');
-
-
-
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    
 });
+
+Route::get('/register', function () {
+    return view('auth.register');
+})->name('register');
+
 
 require __DIR__.'/auth.php';

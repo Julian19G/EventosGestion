@@ -15,6 +15,15 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('evento.index')" :active="request()->routeIs('evento.index')">
+                        {{ __('Eventos') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('organizador.index')" :active="request()->routeIs('organizador.index')">
+                        {{ __('Organizadores') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('participacion.index')" :active="request()->routeIs('participacion.index')">
+                        {{ __('Participaciones') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -71,7 +80,8 @@
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
         </div>
-
+        
+        
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
             <div class="px-4">
